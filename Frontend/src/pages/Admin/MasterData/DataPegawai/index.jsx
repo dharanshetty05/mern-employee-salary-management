@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Layout from '../../../../layout';
 import { Link, useNavigate } from 'react-router-dom';
 import { Breadcrumb, ButtonOne } from '../../../../components';
-import { FaRegEdit, FaPlus } from 'react-icons/fa';
+import { FaRegEdit, FaPlus, FaDownload } from 'react-icons/fa';
 import { BsTrash3 } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -54,6 +54,49 @@ const DataPegawai = () => {
 
     const handleFilterStatus = (event) => {
         setFilterStatus(event.target.value);
+    };
+
+    const handleExportCSV = () => {
+        const headers = ['Name', 'Designation', 'Department', 'Salary'];
+
+        const getDepartment = (jabatan) => {
+            const map = {
+                Mason: 'Civil',
+                Electrician: 'Electrical',
+                Plumber: 'Plumbing',
+                Supervisor: 'Operations',
+                Helper: 'General'
+            };
+
+            return map[jabatan] || 'General';
+        };
+
+        const rows = filteredDataPegawai.map((pegawai) => [
+            pegawai.nama_pegawai,
+            pegawai.jabatan,
+            getDepartment(pegawai.jabatan),
+            'Managed in Payroll Module'
+        ]);
+
+        const csvContent = [
+            headers.join(','),
+            ...rows.map((row) =>
+                row.map((item) => `"${String(item).replace(/"/g, '""')}"`).join(',')
+            )
+        ].join('\n');
+
+        const blob = new Blob([csvContent], {
+            type: 'text/csv;charset=utf-8;'
+        });
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+
+        link.href = url;
+        link.download = 'employee-list.csv';
+        link.click();
+
+        window.URL.revokeObjectURL(url);
     };
 
     const onDeletePegawai = (id) => {
@@ -147,14 +190,24 @@ const DataPegawai = () => {
     return (
         <Layout>
             <Breadcrumb pageName="Data Pegawai" />
-            <Link to="/data-pegawai/form-data-pegawai/add">
-                <ButtonOne>
-                    <span>Tambah Pegawai</span>
-                    <span>
-                        <FaPlus />
-                    </span>
-                </ButtonOne>
-            </Link>
+            <div className="flex flex-col gap-3 md:flex-row">
+                <Link to="/data-pegawai/form-data-pegawai/add">
+                    <ButtonOne>
+                        <span>Tambah Pegawai</span>
+                        <span>
+                            <FaPlus />
+                        </span>
+                    </ButtonOne>
+                </Link>
+
+                <button
+                    onClick={handleExportCSV}
+                    className="inline-flex items-center justify-center gap-2 rounded-md bg-success py-3 px-6 text-white hover:opacity-90"
+                >
+                    <span>Download CSV</span>
+                    <FaDownload />
+                </button>
+            </div>
             <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
                 <div className="flex justify-between items-center mt-4 flex-col md:flex-row md:justify-between">
                     <div className="relative flex-1 md:mr-2 mb-4 md:mb-0">
@@ -188,7 +241,7 @@ const DataPegawai = () => {
                 </div>
 
                 <div className="max-w-full overflow-x-auto py-4">
-                    <table className="w-full table-auto">
+                    <table className="min-w-[1100px] table-auto whitespace-nowrap">
                         <thead>
                             <tr className="bg-gray-2 text-left dark:bg-meta-4">
                                 <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">No</th>
@@ -196,6 +249,7 @@ const DataPegawai = () => {
                                 <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">NIK</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Nama Pegawai</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
+                                <th className="py-4 px-4 font-medium text-black dark:text-white">Designation</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Tanggal Masuk</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Status</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Hak Akses</th>
@@ -224,6 +278,9 @@ const DataPegawai = () => {
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">{data.jenis_kelamin}</p>
+                                        </td>
+                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                                            <p className="text-black dark:text-white">{data.jabatan}</p>
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                             <p className="text-black dark:text-white">{data.tanggal_masuk}</p>

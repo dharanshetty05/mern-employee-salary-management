@@ -28,6 +28,8 @@ const PrintPdfSlipGaji = () => {
     const { isError, user } = useSelector((state) => state.auth);
     const { dataSlipGaji } = useSelector((state) => state.slipGaji);
 
+    const formatDate = (date = new Date()) => date.toLocaleDateString("en-GB");
+
     const getDataByYear = async (selectedYear) => {
         dispatch(fetchSlipGajiByYear(selectedYear));
     };
@@ -231,7 +233,7 @@ const PrintPdfSlipGaji = () => {
                                     <span>{name}</span>
                                 </div>
                                 <div className="font-medium text-black dark:text-white">
-                                    <span className="text-right">Karawang, {`${new Date().getDate()} ${bulan} ${tahun}`}</span>
+                                    <span className="text-right">Karawang, {formatDate()}</span>
                                     <br />
                                     <span>Finance</span>
                                     <br />
@@ -240,7 +242,7 @@ const PrintPdfSlipGaji = () => {
                                 </div>
                             </div>
                             <div className="italic text-black dark:text-white mt-30">
-                                Dicetak Pada : {`${new Date().getDate()} ${bulan} ${tahun}`}
+                                Dicetak Pada : {formatDate()}
                             </div>
                         </div>
                     );

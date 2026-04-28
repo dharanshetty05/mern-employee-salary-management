@@ -27,29 +27,31 @@ const FormEditDataPegawai = () => {
     const updateUser = async (e) => {
         e.preventDefault();
         try {
-            const formData = new FormData();
-            formData.append('nik', nik);
-            formData.append('nama_pegawai', namaPegawai);
-            formData.append('username', username);
-            formData.append('jenis_kelamin', jenisKelamin);
-            formData.append('jabatan', jabatan);
-            formData.append('tanggal_masuk', tanggalMasuk);
-            formData.append('status', status);
-            formData.append('hak_akses', hakAkses);
-
-            const response = await axios.patch(`http://localhost:5000/data_pegawai/${id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
+            const response = await axios.patch(
+                `http://localhost:5000/data_pegawai/${id}`,
+                {
+                    nik,
+                    nama_pegawai: namaPegawai,
+                    username,
+                    jenis_kelamin: jenisKelamin,
+                    jabatan,
+                    tanggal_masuk: tanggalMasuk,
+                    status,
+                    hak_akses: hakAkses
                 }
-            });
+            );
+
             setMsg(response.data.msg);
+
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil',
                 timer: 1500,
                 text: response.data.msg
             });
+
             navigate('/data-pegawai');
+
         } catch (error) {
             setMsg(error.response.data.msg);
             Swal.fire({
@@ -187,16 +189,27 @@ const FormEditDataPegawai = () => {
                                         <label className='mb-2.5 block text-black dark:text-white'>
                                             Jabatan <span className='text-meta-1'>*</span>
                                         </label>
-                                        <input
-                                            type='text'
-                                            id='jabatan'
-                                            name='jabatan'
-                                            value={jabatan}
-                                            onChange={(e) => setJabatan(e.target.value)}
-                                            required={true}
-                                            placeholder='Masukkan jabatan'
-                                            className='w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
-                                        />
+                                        <div className='relative z-20 bg-transparent dark:bg-form-input'>
+                                            <select
+                                                className='relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
+                                                id='jabatan'
+                                                name='jabatan'
+                                                value={jabatan}
+                                                onChange={(e) => setJabatan(e.target.value)}
+                                                required={true}
+                                            >
+                                                <option value='' disabled={true}>Pilih designation</option>
+                                                <option value='Mason'>Mason</option>
+                                                <option value='Electrician'>Electrician</option>
+                                                <option value='Plumber'>Plumber</option>
+                                                <option value='Supervisor'>Supervisor</option>
+                                                <option value='Helper'>Helper</option>
+                                            </select>
+
+                                            <span className='absolute top-1/2 right-4 z-30 -translate-y-1/2 text-2xl'>
+                                                <MdOutlineKeyboardArrowDown />
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className='w-full xl:w-1/2'>
                                         <label className='mb-2.5 block text-black dark:text-white'>

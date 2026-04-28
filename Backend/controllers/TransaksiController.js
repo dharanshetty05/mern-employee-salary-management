@@ -35,9 +35,9 @@ export const viewDataKehadiran = async (req, res) => {
       const nama_pegawai = kehadiran.nama_pegawai;
       const jabatan_pegawai = kehadiran.nama_jabatan;
       const jenis_kelamin = kehadiran.jenis_kelamin;
-      const hadir = kehadiran.hadir;
-      const sakit = kehadiran.sakit;
-      const alpha = kehadiran.alpha;
+      const hadir = kehadiran?.hadir || 0;
+      const sakit = kehadiran?.sakit || 0;
+      const alpha = kehadiran?.alpha || 0;
 
       return {
         id,
@@ -185,6 +185,15 @@ export const deleteDataKehadiran = async (req, res) => {
 // method untuk create data potongan gaji
 export const createDataPotonganGaji = async (req, res) => {
   const { id, potongan, jml_potongan } = req.body;
+
+  const jumlahPotongan = Number(jml_potongan);
+
+  if (isNaN(jumlahPotongan) || jumlahPotongan < 0) {
+    return res.status(400).json({
+      msg: "Jumlah potongan tidak boleh negatif"
+    });
+  }
+
   try {
     const nama_potongan = await PotonganGaji.findOne({
       where: {
@@ -197,7 +206,7 @@ export const createDataPotonganGaji = async (req, res) => {
       await PotonganGaji.create({
         id: id,
         potongan: potongan,
-        jml_potongan: jml_potongan.toLocaleString(),
+        jml_potongan: jumlahPotongan,
       });
       res.json({ msg: "Tambah Data Potongan Gaji Berhasil" });
     }
@@ -235,6 +244,15 @@ export const viewDataPotonganByID = async (req, res) => {
 
 // method untuk update Data Potongan
 export const updateDataPotongan = async (req, res) => {
+
+  const jumlahPotongan = Number(req.body.jml_potongan);
+
+  if (isNaN(jumlahPotongan) || jumlahPotongan < 0) {
+    return res.status(400).json({
+      msg: "Jumlah potongan tidak boleh negatif"
+    });
+  }
+
   try {
     await PotonganGaji.update(req.body, {
       where: {
@@ -454,8 +472,8 @@ export const getDataGajiPegawai = async () => {
       (potongan ? potongan.total_potongan : 0)).toLocaleString();
 
       return {
-        tahun: potongan ? potongan.tahun : kehadiran ? kehadiran.tahun : 0,
-        bulan: potongan ? potongan.bulan : kehadiran ? kehadiran.bulan : 0,
+        tahun: potongan ? potongan.tahun : kehadiran ? kehadiran.tahun : null,
+        bulan: potongan ? potongan.bulan : kehadiran ? kehadiran.bulan : null,
         id: id,
         nik: pegawai.nik,
         nama_pegawai: pegawai.nama_pegawai,
@@ -463,9 +481,9 @@ export const getDataGajiPegawai = async () => {
         gaji_pokok: pegawai.gaji_pokok.toLocaleString(),
         tj_transport: pegawai.tj_transport.toLocaleString(),
         uang_makan: pegawai.uang_makan.toLocaleString(),
-        hadir: kehadiran.hadir,
-        sakit: kehadiran.sakit,
-        alpha: kehadiran.alpha,
+        hadir: kehadiran?.hadir || 0,
+        sakit: kehadiran?.sakit || 0,
+        alpha: kehadiran?.alpha || 0,
         potongan: potongan ? potongan.total_potongan.toLocaleString() : 0,
         total: total_gaji,
       };
@@ -473,6 +491,7 @@ export const getDataGajiPegawai = async () => {
     return total_gaji_pegawai;
   } catch (error) {
     console.error(error);
+    return [];
   }
 };
 

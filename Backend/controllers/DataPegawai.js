@@ -153,40 +153,58 @@ export const createDataPegawai = async (req, res) => {
 
 // method untuk update data Pegawai
 export const updateDataPegawai = async (req, res) => {
-    const pegawai = await DataPegawai.findOne({
-        where: {
-            id: req.params.id
-        }
-    });
-
-    if (!pegawai) return res.staus(404).json({ msg: "Data pegawai tidak ditemukan" });
-    const {
-        nik, nama_pegawai,
-        username, jenis_kelamin,
-        jabatan, tanggal_masuk,
-        status, hak_akses
-    } = req.body;
-
     try {
-        await DataPegawai.update({
-            nik: nik,
-            nama_pegawai: nama_pegawai,
-            username: username,
-            jenis_kelamin: jenis_kelamin,
-            jabatan: jabatan,
-            tanggal_masuk: tanggal_masuk,
-            status: status,
-            hak_akses: hak_akses
-        }, {
+        const pegawai = await DataPegawai.findOne({
             where: {
-                id: pegawai.id
+                id: req.params.id
             }
         });
-        res.status(200).json({ msg: "Data Pegawai Berhasil di Perbarui" });
+
+        if (!pegawai) {
+            return res.status(404).json({
+                msg: "Data pegawai tidak ditemukan"
+            });
+        }
+
+        const {
+            nik,
+            nama_pegawai,
+            username,
+            jenis_kelamin,
+            jabatan,
+            tanggal_masuk,
+            status,
+            hak_akses
+        } = req.body;
+
+        await DataPegawai.update(
+            {
+                nik,
+                nama_pegawai,
+                username,
+                jenis_kelamin,
+                jabatan,
+                tanggal_masuk,
+                status,
+                hak_akses
+            },
+            {
+                where: {
+                    id: req.params.id
+                }
+            }
+        );
+
+        res.status(200).json({
+            msg: "Data Pegawai Berhasil di Perbarui"
+        });
+
     } catch (error) {
-        res.status(400).json({ msg: error.message });
+        res.status(400).json({
+            msg: error.message
+        });
     }
-}
+};
 
 // Method untuk update password Pegawai
 export const changePasswordAdmin = async (req, res) => {

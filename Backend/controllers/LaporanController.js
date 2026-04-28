@@ -21,7 +21,7 @@ export const viewLaporanGajiPegawaiByMonth = async (req, res) => {
         const dataLaporanGajiByMonth = await getDataGajiPegawai(req, res);
 
         const filteredData = dataLaporanGajiByMonth.filter((data) => {
-            return data.bulan.toLowerCase() === month.toLowerCase();
+            return typeof data.bulan === "string" && data.bulan.toLowerCase() === month.toLowerCase();
         });
 
         if (filteredData.length === 0) {
@@ -173,34 +173,42 @@ export const viewSlipGajiByName = async (req, res) => {
 export const viewSlipGajiByMonth = async (req, res) => {
     try {
         const { month } = req.params;
-        const dataLaporanGajiByMonth = await getDataGajiPegawai(req, res);
+        const dataSlip = await getDataGajiPegawai();
 
-        const filteredData = dataLaporanGajiByMonth.filter((data) => {
-            return data.bulan.toLowerCase() === month.toLowerCase();
+        const filteredData = dataSlip.filter((data) => {
+        return (
+            typeof data.bulan === "string" &&
+            data.bulan.toLowerCase() === month.toLowerCase()
+        );
         });
 
         if (filteredData.length === 0) {
-            res.status(404).json({ msg: `Data dengan bulan ${month} tidak ditemukan ` });
-        } else {
-            const formattedData = filteredData.map((data) => {
-                return {
-                    bulan: data.bulan,
-                    tahun: data.tahun,
-                    nama_pegawai: data.nama_pegawai,
-                    jabatan: data.jabatan,
-                    gaji_pokok: data.gaji_pokok,
-                    tj_transport: data.tj_transport,
-                    uang_makan: data.uang_makan,
-                    potongan: data.potongan,
-                    total_gaji: data.total
-                };
-            });
-            res.json(formattedData);
+        return res.status(404).json({
+            msg: `Data dengan bulan ${month} tidak ditemukan`
+        });
         }
+
+        const formattedData = filteredData.map((data) => ({
+        bulan: data.bulan,
+        tahun: data.tahun,
+        nama_pegawai: data.nama_pegawai,
+        jabatan: data.jabatan,
+        gaji_pokok: data.gaji_pokok,
+        tj_transport: data.tj_transport,
+        uang_makan: data.uang_makan,
+        potongan: data.potongan,
+        total_gaji: data.total
+        }));
+
+        return res.json(formattedData);
+
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        return res.status(500).json({
+        error: error.message
+        });
     }
-}
+};
 
 // method untuk melihat Slip Gaji Pegawai By Year
 export const viewSlipGajiByYear = async (req, res) => {

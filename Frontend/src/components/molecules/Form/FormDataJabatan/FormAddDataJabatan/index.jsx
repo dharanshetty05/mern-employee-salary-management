@@ -130,6 +130,8 @@ const FormAddDataJabatan = () => {
                                             name='gajiPokok'
                                             value={gajiPokok}
                                             onChange={handleChange}
+                                            min='0'
+                                            step='1'
                                             required
                                             placeholder='Masukkan gaji pokok'
                                             className='w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
@@ -148,6 +150,8 @@ const FormAddDataJabatan = () => {
                                             name='tjTransport'
                                             value={tjTransport}
                                             onChange={handleChange}
+                                            min='0'
+                                            step='1'
                                             required
                                             placeholder='Masukkan tunjangan transport'
                                             className='w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
@@ -164,6 +168,8 @@ const FormAddDataJabatan = () => {
                                             name='uangMakan'
                                             value={uangMakan}
                                             onChange={handleChange}
+                                            min='0'
+                                            step='1'
                                             required
                                             placeholder='Masukkan uang makan'
                                             className='w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'

@@ -185,6 +185,15 @@ export const deleteDataKehadiran = async (req, res) => {
 // method untuk create data potongan gaji
 export const createDataPotonganGaji = async (req, res) => {
   const { id, potongan, jml_potongan } = req.body;
+
+  const jumlahPotongan = Number(jml_potongan);
+
+  if (isNaN(jumlahPotongan) || jumlahPotongan < 0) {
+    return res.status(400).json({
+      msg: "Jumlah potongan tidak boleh negatif"
+    });
+  }
+
   try {
     const nama_potongan = await PotonganGaji.findOne({
       where: {
@@ -197,7 +206,7 @@ export const createDataPotonganGaji = async (req, res) => {
       await PotonganGaji.create({
         id: id,
         potongan: potongan,
-        jml_potongan: jml_potongan.toLocaleString(),
+        jml_potongan: jumlahPotongan,
       });
       res.json({ msg: "Tambah Data Potongan Gaji Berhasil" });
     }
@@ -235,6 +244,15 @@ export const viewDataPotonganByID = async (req, res) => {
 
 // method untuk update Data Potongan
 export const updateDataPotongan = async (req, res) => {
+
+  const jumlahPotongan = Number(req.body.jml_potongan);
+
+  if (isNaN(jumlahPotongan) || jumlahPotongan < 0) {
+    return res.status(400).json({
+      msg: "Jumlah potongan tidak boleh negatif"
+    });
+  }
+
   try {
     await PotonganGaji.update(req.body, {
       where: {

@@ -35,9 +35,9 @@ export const viewDataKehadiran = async (req, res) => {
       const nama_pegawai = kehadiran.nama_pegawai;
       const jabatan_pegawai = kehadiran.nama_jabatan;
       const jenis_kelamin = kehadiran.jenis_kelamin;
-      const hadir = kehadiran.hadir;
-      const sakit = kehadiran.sakit;
-      const alpha = kehadiran.alpha;
+      const hadir = kehadiran?.hadir || 0;
+      const sakit = kehadiran?.sakit || 0;
+      const alpha = kehadiran?.alpha || 0;
 
       return {
         id,
@@ -454,8 +454,8 @@ export const getDataGajiPegawai = async () => {
       (potongan ? potongan.total_potongan : 0)).toLocaleString();
 
       return {
-        tahun: potongan ? potongan.tahun : kehadiran ? kehadiran.tahun : 0,
-        bulan: potongan ? potongan.bulan : kehadiran ? kehadiran.bulan : 0,
+        tahun: potongan ? potongan.tahun : kehadiran ? kehadiran.tahun : null,
+        bulan: potongan ? potongan.bulan : kehadiran ? kehadiran.bulan : null,
         id: id,
         nik: pegawai.nik,
         nama_pegawai: pegawai.nama_pegawai,
@@ -463,9 +463,9 @@ export const getDataGajiPegawai = async () => {
         gaji_pokok: pegawai.gaji_pokok.toLocaleString(),
         tj_transport: pegawai.tj_transport.toLocaleString(),
         uang_makan: pegawai.uang_makan.toLocaleString(),
-        hadir: kehadiran.hadir,
-        sakit: kehadiran.sakit,
-        alpha: kehadiran.alpha,
+        hadir: kehadiran?.hadir || 0,
+        sakit: kehadiran?.sakit || 0,
+        alpha: kehadiran?.alpha || 0,
         potongan: potongan ? potongan.total_potongan.toLocaleString() : 0,
         total: total_gaji,
       };
@@ -473,6 +473,7 @@ export const getDataGajiPegawai = async () => {
     return total_gaji_pegawai;
   } catch (error) {
     console.error(error);
+    return [];
   }
 };
 

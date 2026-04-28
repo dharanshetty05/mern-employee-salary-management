@@ -1,208 +1,282 @@
-<H1 align ="center" >MERN EMPLOYEE SALARY MANAGEMENT<br/>{ SiPeKa }</h1>
-<h5  align ="center"> 
-SiPeKa (Employee Payroll System) is a system used by companies to manage employee payroll processes efficiently and accurately. This system plays a key role in automating various tasks related to payroll, such as calculating payroll, processing attendance, and paying employee wages.<br/> In SiPeKa, employee information such as personal data, position and salary level is stored centrally. Every month, the system will retrieve employee attendance data and perform salary calculations based on the available information. This includes factors such as relevant hours worked, leave, overtime and deductions.</h5>
-<br/>
+# MERN Employee Salary Management  
+### React Developer Hiring Assignment Submission
 
-  * [Configuration and Setup](#configuration-and-setup)
-  * [Key Features](#key-features)
-  * [Technologies used](#technologies-used)
-      - [Frontend](#frontend)
-      - [Backend](#backend)
-      - [Database](#database)
-  * [📸 Screenshots](#screenshots)
-  * [Meet The Teams](#meet-the-teams)
-  * [Author](#author)
-  * [License](#license)
+**Candidate:** Dharan Shetty  
+**Repository:** `mern-employee-salary-management`
 
-## Configuration and Setup
+---
 
-In order to run this project locally, simply fork and clone the repository or download as zip and unzip on your machine.
+## 📌 Overview
 
-- Open the project in your prefered code editor.
-- Go to terminal -> New terminal (If you are using VS code)
-- Split your terminal into two (run the Frontend on one terminal and the server on the other terminal)
+This repository contains my submission for a **React Developer Hiring Assignment** based on an HRMS-style application.
 
-In the first terminal
+I selected **MERN Employee Salary Management** because it already included core workflows such as employee management, payroll processing, and admin operations, making it a practical and relevant foundation for the requested assignment scope.
 
-```
-$ cd Fronted
-$ npm install (to install Frontend-side dependencies)
-$ npm run dev(to start the Frontend)
-```
+The assignment focused on:
 
-In the second terminal
+- Building a new feature module
+- Resolving multiple real-world product tickets
+- Working within an existing codebase
+- Preserving maintainability and consistency
 
-- Create your MySQL database, which you will use as your database
-- Supply the following credentials
+---
 
-```
-#  --- .env  ---
+## 🛠 Tech Stack
 
-APP_PORT =5000
-SESS_SECRET =
+### Frontend
+- React
+- Vite
+- Redux Toolkit
+- Tailwind CSS
 
-```
+### Backend
+- Node.js
+- Express.js
 
-```
-# --- Terminal ---
+### Database
+- MySQL
+- Sequelize ORM
 
-$ cd Backend
-$ npm install (to install Backend-side dependencies)
-$ npm start (to start the Backend)
+---
 
+## 🚀 Local Setup Instructions
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/dharanshetty05/mern-employee-salary-management.git
+cd mern-employee-salary-management
 ```
 
-##  Key Features
+## 2. Create MySQL Database
 
-- Login Admin
-- Add employee
-- Edit employee
-- Remove employee
-- Add position
-- Edit position
-- Remove position
-- Display data, input attendance, edit attendance and delete employee absences
-- Employee Salary Deduction Setting
-- Display data, input salary data, edit salary data and delete employee salary data
-- Print payroll reports, absences, and payslips
-- Change admin and employee passwords
-- Login Employees/Staff
-- Print employees/staff salary reports from personal accounts
-- 404 Page and many more
-- Responsive Design
+```sql
+CREATE DATABASE db_penggajian3;
+```
 
-<br/>
+## 3. Import Database Dump
 
-##  Technologies used
+Use the SQL file located at:
 
-This project was created using the following technologies.
+```bash
+Backend/db/db_penggajian3.sql
+```
 
-####  Frontend
+## 4. Configure Environment Variables
 
-- [React JS ](https://www.npmjs.com/package/react) - JavaScript library that is used for building user interfaces specifically for single-page applications
-- [React Hooks  ](https://reactjs.org/docs/hooks-intro.html) - For managing and centralizing application state
-- [React Router Dom](https://www.npmjs.com/package/react-router-dom) - To handle routing
-- [Axios](https://www.npmjs.com/package/axios) - For making Api calls
-- [Tailwind CSS](https://tailwindcss.com/) - For User Interface
-- [React icons](https://react-icons.github.io/react-icons/) - Small library that helps you add icons  to your react apps
-- [Redux](https://redux.js.org/) - Managing complex application state
-- [Localforage](https://localforage.github.io/localForage/) - Saves data in the web browser asynchronously
-- [React Vite](https://vitejs.dev/guide/) - Improved website speed
-- [Redux Toolkit](https://redux-toolkit.js.org/) - To facilitate the development of web applications using Redux
-- [Apexcharts](https://www.npmjs.com/package/apexcharts) - An open source library used to create interactive graphics on websites or web applications
-- [Match Sorter](https://www.npmjs.com/package/match-sorter) - An open source library used to create interactive graphics on websites or web applications
-- [Email JS](https://www.emailjs.com/) - For User Interface
-- [Framer Motion](https://www.framer.com/motion/) - For User Interface
-- [React Redux](https://react-redux.js.org/) - Managing complex application state
-- [React to Print](https://www.npmjs.com/package/react-to-print) - Print PDF
-- [Sweet Alert2](https://sweetalert2.github.io/) - Create various types of pop-up alerts such as regular alerts, error alerts, success alerts, confirmation alerts, and so on.
+Create a file:
 
-####  Backend
+```bash
+Backend/.env
+```
 
-- [Node JS](https://nodejs.org/en/) -A runtime environment to help build fast server applications using JS
-- [Express JS](https://www.npmjs.com/package/express) -The server for handling and routing HTTP requests
-- [MySql12](https://www.npmjs.com/package/mysql2) - For authentication
-- [Cors](https://www.npmjs.com/package/cors) - Provides a Connect/Express middleware
-- [Bcrypt JS](https://www.npmjs.com/package/bcryptjs) - For data encryption
-- [Dotenv](https://www.npmjs.com/package/dotenv) - Zero Dependency module that loads environment variables
-- [Nodemon](https://www.npmjs.com/package/nodemon) - To monitor changes to the program code that is being developed
-- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - For authentication
-- [Cookie Parser](https://www.npmjs.com/package/cookie-parser) - A middleware for web frameworks
-- [Sequelize](https://www.npmjs.com/package/sequelize) - An Object-Relational Mapping (ORM) for Node.js that makes it easy to access relational databases such as MySQL, PostgreSQL, and SQLite using the JavaScript programming language.
-- [Argon2](https://www.npmjs.com/package/argon2) - A password-hashing function that summarizes the state of the art in the design of memory-hard functions and can be used to hash passwords for credential storage, key derivation, or other applications.
-- [Connect Session Sequelize](https://www.npmjs.com/package/connect-session-sequelize) - Implement authentication for users with site applications.
+Add:
 
-####  Database
+```env
+APP_PORT=5000
+SESS_SECRET=your_secret_key
+```
 
- - [MySQL ](https://www.mysql.com/) - It provides a free cloud service to store MongoDB collections.
- ##  Screenshots
+## 5. Run Backend
 
-![img-1](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/a3f72509-8ca0-452b-b121-ff4ecf94580d)
----- -
-![img-2](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/e7998109-d53d-4c93-80eb-f6e9c05f44b4)
---- -
-![img-3](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/f7424cc9-2b63-49af-a2b7-37bd9e79e342)
---- -
-![img-4](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/0c2859cb-2d56-447c-bd19-fabe707988aa)
---- -
-![img-5](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/ed0af932-ea78-44ac-ba91-48eb91449517)
---- -
-![img-6](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/3efac0b3-b2d5-45ec-b82c-82b9b191ffd2)
---- -
-![img-7](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/5d6f9974-7b8e-4c12-a049-44368640dc62)
---- -
-![img-8](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/be9c67c6-376f-450a-9ba3-c968bd9ec063)
---- -
-![img-9](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/8ffef668-7cb1-4004-980c-d2463683ba3b)
---- -
-![img-10](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/8067acac-dc49-4f6e-a6aa-f4baae2fa8a5)
---- -
-![img-11](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/ecd09fb0-1f97-4856-ba4d-28170927e070)
---- -
-![img-12](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/ecdafe57-1b4a-4ddf-9802-7a4c5d3be141)
---- -
-![img-13](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/f5831815-3cd7-4f83-8193-12c16f859023)
---- -
-![img-14](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/8539843c-39f1-4642-84b6-cb9a2a4b09b9)
---- -
-![img-15](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/fd0e75e7-b0d5-4fe8-a477-1a1c8b709ca8)
---- -
-![img-16](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/90f57d70-6547-4a55-8045-f51aa596061a)
---- -
-![img-17](https://github.com/berthutapea/mern-employee-salary-management/assets/111676859/7e0c9850-7c71-4fc3-aa7b-86b323fb1b8b)
+```bash
+cd Backend
+npm install
+npm start
+```
 
-## Meet The Teams
+Backend runs at: http://localhost:5000
 
-<center>
-  <table align="center">
-    <tr >
-      <th >Backend Developer</th>
-      <th >Frontend Developer</th>
-    </tr>
-    <tr >
-      <td align="center">
-        <a href="https://github.com/AldiRamdani0401">
-          <img width="200"  src="https://res.cloudinary.com/du541igfh/image/upload/v1690573793/Blog%20Portfolio%20Gilbert/Project/mern-penggajian-karyawan/Aldi_mkw04y.jpg" alt=""><br/>
-          <b>Aldi Ramdani</b>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/berthutapea">
-          <img width="200"  src="https://res.cloudinary.com/du541igfh/image/upload/v1690573793/Blog%20Portfolio%20Gilbert/Project/mern-penggajian-karyawan/Gilbert_zx9rbq.jpg" alt=""><br/>
-          <b>Gilbert Hutapea</b>
-        </a>
-      </td>
-    </tr>
-  </table>
-</center>
+## 6. Run Frontend
 
-## Author
-- Portfolio: [berthutapea](https://berthutapea.vercel.app/)
-- Github: [berthutapea](https://github.com/berthutapea)
-- Sponsor: [berthutapea](https://saweria.co/berthutapea)
-- Linkedin: [gilberthutapea](https://www.linkedin.com/in/gilberthutapea/)
-- Email: [berthutapea@gmail.com](mailto:berthutapea@gmail.com)
+```bash
+cd Fronted
+npm install
+npm run dev
+```
 
-## License
+Frontend runs at: http://localhost:5173
 
-MIT License
+---
 
-Copyright (c) 2022 Gilbert Hutapea
+# ✅ Assignment Completion Summary
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+---
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+# PART 1: Feature Build
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Overtime Entry & Approval Module
+
+Implemented an overtime request workflow with validation and persistence.
+
+### Features Added
+
+- Sidebar navigation link for overtime module
+- Overtime entry screen
+- Worker selection from existing employee records
+- Date input field
+- Overtime hours input
+- Reason input
+- Pending status submission flow
+- Database persistence for overtime requests
+
+---
+
+## Frontend Validation
+
+Implemented client-side validation for better UX:
+
+- All fields required
+- Overtime hours allowed only between **1 and 6**
+- Future dates blocked
+- Dates older than **7 days** blocked
+- Reason must be at least **10 characters**
+
+---
+
+## Backend Validation
+
+Implemented matching server-side validation for reliability:
+
+- Same validation rules enforced server-side
+- Worker must exist in database
+- Duplicate request for same worker + date blocked
+- Monthly overtime cap of **60 hours**
+- Structured API error responses
+
+---
+
+# PART 2: Ticket Blitz
+
+Resolved all requested product tickets.
+
+---
+
+## LF-101  
+**Wrong date format on payslip**
+
+✔ Standardized payslip date display to:
+
+```text
+DD/MM/YYYY
+```
+
+---
+
+## LF-102  
+**Negative salary values allowed**
+
+✔ Prevented negative salary values in:
+
+- Frontend forms
+- Backend APIs
+
+---
+
+## LF-103  
+**Designation field issue**
+
+✔ Existing schema already used `jabatan` as designation.
+
+Instead of creating duplicate columns, I:
+
+- Reused the current domain model
+- Converted field into controlled dropdown
+- Fixed persistence/update handling
+
+---
+
+## LF-104  
+**CSV Export**
+
+✔ Added employee list CSV export including key payroll fields.
+
+---
+
+## LF-105  
+**Mobile responsiveness**
+
+✔ Improved employee list usability on smaller screens through better horizontal scrolling and layout handling.
+
+---
+
+# 🧠 AI Tool Usage
+
+**Tool Used:** ChatGPT
+
+Used for:
+
+- Repository navigation strategy
+- Debugging environment setup issues
+- Discussing validation approaches
+- Reviewing implementation options
+- Improving documentation quality
+
+> All final code changes were manually reviewed, adapted to the existing codebase, and tested locally.
+
+---
+
+# 📝 Important Implementation Notes
+
+## LF-103 Design Choice
+
+The project already represented designation using the `jabatan` field.  
+To avoid unnecessary schema duplication, I reused the existing structure instead of introducing redundant columns.
+
+## Legacy Dependency Note
+
+The existing session-store package had compatibility issues with newer Node.js versions during local setup.
+
+To keep the application runnable, session handling was adjusted locally while preserving intended behavior.
+
+---
+
+# 🔀 Commit / Pull Request Workflow
+
+Development was completed on a feature branch with incremental commits after each task.
+
+## Branch Workflow
+
+- Created a dedicated working branch from `main`
+- Implemented each assignment task in sequence
+- Used atomic commits with clear ticket references
+- Opened pull requests to merge reviewed work into `main`
+
+## Pull Requests
+
+### PR 1
+**Ticket Blitz:** LF-101 to LF-105 fixes
+
+### PR 2
+**Feature Build:** Overtime Entry & Approval module
+
+## Commit Strategy
+
+Separate commits were maintained for:
+
+- LF-101 Payslip date format fix
+- LF-102 Negative salary validation
+- LF-103 Designation dropdown enhancement
+- LF-104 Employee CSV export
+- LF-105 Mobile responsiveness fix
+- Overtime feature module
+- Navigation/sidebar integration
+- Local environment compatibility setup
+
+Work was completed on a dedicated branch using task-based commits, then merged into main through pull requests.
+
+---
+
+# 📊 Final Status
+
+✅ All requested tickets completed  
+✅ Feature build implemented  
+✅ Tested locally  
+
+---
+
+# 🙌 Closing Note
+
+This assignment was approached as a real production task: understanding an unfamiliar codebase, implementing features carefully, fixing issues cleanly, and maintaining consistency with the existing architecture.
+
+Thank you for your time and review.

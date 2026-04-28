@@ -12,10 +12,11 @@ import AuthRoute from './routes/AuthRoute.js';
 
 const app = express();
 
-const sessionStore = SequelizeStore(session.Store);
-const store = new sessionStore({
-    db: db
-});
+// Disabled Sequelize session store for local compatibility
+// const sessionStore = SequelizeStore(session.Store);
+// const store = new sessionStore({
+//     db: db
+// });
 
 /* (async() => {
     await db.sync();
@@ -28,7 +29,7 @@ app.use(session({
     secret: process.env.SESS_SECRET,
     resave: false,
     saveUninitialized: true,
-    store: store,
+    // store: store,
     cookie: {
         secure: 'auto'
     }

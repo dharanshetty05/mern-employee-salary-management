@@ -2,6 +2,7 @@ import DataKehadiran from "../models/DataKehadiranModel.js";
 import DataPegawai from "../models/DataPegawaiModel.js";
 import DataJabatan from "../models/DataJabatanModel.js";
 import PotonganGaji from "../models/PotonganGajiModel.js";
+import DataLembur from "../models/DataLemburModel.js";
 import moment from "moment";
 import "moment/locale/id.js";
 
@@ -711,3 +712,110 @@ export const dataLaporanGajiByYear = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const createDataLembur = async (req, res) => {
+  const { employee_id, tanggal, jam_lembur, alasan } = req.body;
+
+  try {
+    if (!employee_id || !tanggal || !jam_lembur || !alasan) {
+      return res.status(400).json({ msg: "Semua field wajib diisi" });
+    }
+
+    const jam = Number(jam_lembur);
+
+    if (jam < 1 || jam > 6) {
+      return res.status(400).json({ msg: "Jam lembur harus antara 1 sampai 6" });
+    }
+
+    if (alasan.trim().length < 10) {
+      return res.status(400).json({ msg: "Alasan minimal 10 karakter" });
+    }
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const inputDate = new Date(tanggal);
+
+    const minDate = new Date();
+    minDate.setDate(today.getDate() - 7);
+    minDate.setHours(0,0,0,0);
+
+    if (inputDate > today) {
+      return res.status(400).json({ msg: "Tanggal tidak boleh di masa depan" });
+    }
+
+    if (inputDate < minDate) {
+      return res.status(400).json({ msg: "Tanggal maksimal 7 hari ke belakang" });
+    }
+
+    const pegawai = await DataPegawai.findOne({
+      where: { id: employee_id }
+    });
+
+    if (!pegawai) {
+      return res.status(404).json({ msg: "Pegawai tidak ditemukan" });
+    }
+
+    const duplicate = await DataLembur.findOne({
+      where: {
+        employee_id,
+        tanggal
+      }
+    });
+
+    if (duplicate) {
+      return res.status(400).json({
+        msg: "Data lembur untuk pegawai dan tanggal ini sudah ada"
+      });
+    }
+
+    const semuaLembur = await DataLembur.findAll({
+      where: { employee_id }
+    });
+
+    const bulanInput = tanggal.slice(0, 7);
+
+    let totalJam = jam;
+
+    semuaLembur.forEach((item) => {
+      if (item.tanggal.slice(0, 7) === bulanInput) {
+        totalJam += Number(item.jam_lembur);
+      }
+    });
+
+    if (totalJam > 60) {
+      return res.status(400).json({
+        msg: "Total lembur bulanan melebihi 60 jam"
+      });
+    }
+
+    await DataLembur.create({
+      employee_id,
+      tanggal,
+      jam_lembur: jam,
+      alasan,
+      status: "Pending"
+    });
+
+    return res.json({
+      msg: "Data lembur berhasil ditambahkan"
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      msg: error.message
+    });
+  }
+};
+
+export const viewDataLembur = async (req, res) => {
+  try {
+    const data = await DataLembur.findAll({
+      order: [["id", "DESC"]],
+    });
+    
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+}

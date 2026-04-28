@@ -25,6 +25,7 @@ import {
   DataPegawai,
   DataJabatan,
   DataKehadiran,
+  DataLembur,
   DataGaji,
   LaporanGaji,
   LaporanAbsensi,
@@ -85,6 +86,7 @@ const AppRoutes = () => {
         path='/data-kehadiran/form-data-kehadiran/edit/:id'
         element={<FormEditDataKehadiran />}
       />
+      <Route path='/data-lembur' element={<DataLembur />} />
       <Route
         path='/data-potongan'
         element={<DataPotongan />}
